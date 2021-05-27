@@ -1,0 +1,27 @@
+{
+  "rawdata.project_id": "P1",
+  "rawdata.sample_id": "S1",
+  "rawdata.library_id": "L1",
+  "rawdata.batch_id": "B1",
+  "rawdata.type": "s3",
+  "rawdata.endpoint": "cn-northwest-1",
+  "rawdata.bucket": "singleronbio-sequence-provider",
+  "rawdata.aki": "AKIA6EWQGDHCYT5NUJ4U",
+  "rawdata.aks": "D3uh6VfXz5N+MzBEmuEk+anx2GcqjNvAobcyl4MC",
+  "rawdata.files": [
+    {
+      "path": "ketouyun/PT47X/L210514025X1/L210514025X1_R1.fastq.gz",
+      "md5": "4794dc0cd7a6340e555ce5a75e2ecc88"
+    },
+    {
+      "path": "ketouyun/PT47X/L210514025X1/L210514025X1_R2.fastq.gz",
+      "md5": "e7866112392a89f9029beb6b38b707ee"
+    }
+  ],
+  "rawdata.runtime_attr_download": {
+    "cpu": 1,
+    "memory_gb": 1,
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-rawdata:0.1.2",
+    "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "celescope_count.lownum": "2",
+  "celescope_count.pattern": "None",
+  "celescope_count.insert": "150",
+  "celescope_count.gtf_type": "exon",
+  "celescope_count.min_length": "20",
+  "celescope_count.overlap": "10",
+  "celescope_count.linker": "None",
+  "celescope_count.whitelist": "None",
+  "celescope_count.raw_fq1s": [
+    "s3://singleronbio-de-ami/rawdata/celescope/MG_201026_1-R2010284_L3_1.fq.gz"
+  ],
+  "celescope_count.raw_fq2s": [
+    "s3://singleronbio-de-ami/rawdata/celescope/MG_201026_1-R2010284_L3_2.fq.gz"
+  ],
+  "celescope_count.lowqual": "0",
+  "celescope_count.sample_name": "String",
+  "celescope_count.genome_dir": "/usr/local/aws-cli/reference/genome/Homo_sapiens/ensembl_92",
+  "celescope_count.runtime_attr_sample": {
+    "cpu": 1,
+    "memory_gb": 1,
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.2.0",
+    "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
+  },
+  "celescope_count.runtime_attr_featurecounts": {
+    "cpu": 16, 
+    "memory_gb": 32, 
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.2.0",
+    "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
+  },
+  "celescope_count.runtime_attr_analysis": {
+    "cpu": 4,
+    "memory_gb": 8,
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.2.0",
+    "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
+  },
+  "celescope_count.runtime_attr_cutadapt": {
+    "cpu": 1,
+    "memory_gb": 1,
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.2.0",
+    "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
+  },
+  "celescope_count.runtime_attr_barcode": {
+    "cpu": 1,
+    "memory_gb": 1,
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.2.0",
+    "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
+  },
+  "celescope_count.runtime_attr_count": {
+    "cpu": 1,
+    "memory_gb": 8,
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.2.0",
+    "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
+  },
+  "celescope_count.runtime_attr_star": {
+    "cpu": 16, 
+    "memory_gb": 32, 
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.2.0",
+    "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
+  }
+}
