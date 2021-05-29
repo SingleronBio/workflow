@@ -2,5 +2,6 @@
   "final_workflow_outputs_dir": "s3://singleronbio-rd/rawdata/P1/S1",
   "final_call_logs_dir": "s3://singleronbio-rd/log/P1/S1",
   "final_workflow_log_dir": "s3://singleronbio-rd/workflow_log/P1/S1",
-  "backend": "RD"
+  "backend": "RD",
+  "base_url": "https://cromwell-cn-api.singleronbio.com/api/workflows/v1"
 }
