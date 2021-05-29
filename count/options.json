@@ -1,6 +1,7 @@
 {
-  "final_workflow_outputs_dir": "s3://singleronbio-de/worflow/P1/S1",
+  "final_workflow_outputs_dir": "s3://singleronbio-de/workflow/P1/S1",
   "final_call_logs_dir": "s3://singleronbio-de/log/P1/S1",
   "final_workflow_log_dir": "s3://singleronbio-de/workflow_log/P1/S1",
-  "backend": "DE"
+  "backend": "DE",
+  "base_url": "https://cromwell-de-api.singleronbio.com/api/workflows/v1"
 }
