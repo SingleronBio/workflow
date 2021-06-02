@@ -213,7 +213,7 @@ task star {
   command {
     set -euo pipefail
     mv "~{in_data}" ".data.json"
-    celescope rna STAR --outdir "03.STAR" --sample "~{sample_name}" --assay rna --fq "~{clean_fq}" --genomeDir "~{genome_dir}" --thread ~{runtime_attr_override.cpu} --outFilterMatchNmin 0
+    celescope rna star --outdir "03.STAR" --sample "~{sample_name}" --assay rna --fq "~{clean_fq}" --genomeDir "~{genome_dir}" --thread ~{runtime_attr_override.cpu} --outFilterMatchNmin 0
   }
   RuntimeAttr runtime_attr_default = object {
     cpu: 1,
@@ -328,7 +328,7 @@ task analysis {
   }
   output {
     File out_data = ".data.json"
-    File out_h5ad = "~{sample_name}.h5ad"
+    File out_h5ad = "06.analysis/~{sample_name}.h5ad"
     File out_report = "~{sample_name}_report.html"
   }
 }
