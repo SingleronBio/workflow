@@ -88,6 +88,8 @@ task obs {
     cpu: 1,
     memory_gb: 1
   }
+  Int cpu = select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
+  Int memory_gb = select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])
   runtime {
     cpu: select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
     memory: select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])+"GiB"
@@ -119,6 +121,8 @@ task oss {
     cpu: 1,
     memory_gb: 1
   }
+  Int cpu = select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
+  Int memory_gb = select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])
   runtime {
     cpu: select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
     memory: select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])+"GiB"
@@ -153,6 +157,8 @@ task s3 {
     cpu: 1,
     memory_gb: 1
   }
+  Int cpu = select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
+  Int memory_gb = select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])
   runtime {
     cpu: select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
     memory: select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])+"GiB"
