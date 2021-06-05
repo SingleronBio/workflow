@@ -19,43 +19,43 @@
   "celescope_count.runtime_attr_sample": {
     "cpu": 1,
     "memory_gb": 1,
-    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.3.0",
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:temporary",
     "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
   },
   "celescope_count.runtime_attr_featurecounts": {
-    "cpu": 16, 
-    "memory_gb": 32, 
-    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.3.0",
+    "cpu": 16,
+    "memory_gb": 32,
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:temporary",
     "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
   },
   "celescope_count.runtime_attr_analysis": {
     "cpu": 4,
     "memory_gb": 8,
-    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.3.0",
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:temporary",
     "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
   },
   "celescope_count.runtime_attr_cutadapt": {
     "cpu": 1,
     "memory_gb": 1,
-    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.3.0",
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:temporary",
     "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
   },
   "celescope_count.runtime_attr_barcode": {
     "cpu": 1,
     "memory_gb": 1,
-    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.3.0",
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:temporary",
     "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
   },
   "celescope_count.runtime_attr_count": {
     "cpu": 1,
     "memory_gb": 8,
-    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.3.0",
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:temporary",
     "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
   },
   "celescope_count.runtime_attr_star": {
-    "cpu": 16, 
-    "memory_gb": 32, 
-    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:1.3.0",
+    "cpu": 16,
+    "memory_gb": 32,
+    "docker": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:temporary",
     "queue": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE"
   }
 }
