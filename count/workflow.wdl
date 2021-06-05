@@ -98,6 +98,7 @@ workflow celescope_count {
       in_matrix = count.out_matrix,
       in_data = count.out_data,
       mem_on_mtx = count.mem_on_mtx,
+      genome_dir = genome_dir,
 
       runtime_attr_override = runtime_attr_analysis
   }
@@ -123,6 +124,8 @@ task sample {
     cpu: 1,
     memory_gb: 1
   }
+  Int cpu = select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
+  Int memory_gb = select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])
   runtime {
     cpu: select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
     memory: select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])+"GiB"
@@ -151,12 +154,14 @@ task barcode {
   command {
     set -euo pipefail
     mv "~{in_data}" ".data.json"
-    celescope rna barcode --outdir "01.barcode" --sample "~{sample_name}" --assay "rna" --chemistry "auto" --fq1 "~{sep="," raw_fq1s}" --fq2 "~{sep="," raw_fq2s}" --pattern "~{default="None" pattern}" --whitelist "~{default="None" whitelist}" --linker "~{default="None" linker}" --lowQual "~{lowqual}" --thread ~{runtime_attr_override.cpu} --lowNum "~{lownum}"
+    celescope rna barcode --outdir "01.barcode" --sample "~{sample_name}" --assay "rna" --chemistry "auto" --fq1 "~{sep="," raw_fq1s}" --fq2 "~{sep="," raw_fq2s}" --pattern "~{default="None" pattern}" --whitelist "~{default="None" whitelist}" --linker "~{default="None" linker}" --lowQual "~{lowqual}" --thread "~{cpu}" --lowNum "~{lownum}"
   }
   RuntimeAttr runtime_attr_default = object {
     cpu: 1,
     memory_gb: 1
   }
+  Int cpu = select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
+  Int memory_gb = select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])
   runtime {
     cpu: select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
     memory: select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])+"GiB"
@@ -183,12 +188,14 @@ task cutadapt {
   command {
     set -euo pipefail
     mv "~{in_data}" ".data.json"
-    celescope rna cutadapt --outdir "02.cutadapt" --sample "~{sample_name}" --assay "rna" --fq "~{valid_fq}" --overlap "~{overlap}" --minimum_length "~{min_length}" --insert "~{insert}" --thread "~{runtime_attr_override.cpu}"
+    celescope rna cutadapt --outdir "02.cutadapt" --sample "~{sample_name}" --assay "rna" --fq "~{valid_fq}" --overlap "~{overlap}" --minimum_length "~{min_length}" --insert "~{insert}" --thread "~{cpu}"
   }
   RuntimeAttr runtime_attr_default = object {
     cpu: 1,
     memory_gb: 1
   }
+  Int cpu = select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
+  Int memory_gb = select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])
   runtime {
     cpu: select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
     memory: select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])+"GiB"
@@ -213,12 +220,14 @@ task star {
   command {
     set -euo pipefail
     mv "~{in_data}" ".data.json"
-    celescope rna star --outdir "03.STAR" --sample "~{sample_name}" --assay rna --fq "~{clean_fq}" --genomeDir "~{genome_dir}" --thread ~{runtime_attr_override.cpu} --outFilterMatchNmin 0
+    celescope rna star --outdir "03.STAR" --sample "~{sample_name}" --assay rna --fq "~{clean_fq}" --genomeDir "~{genome_dir}" --thread "~{cpu}" --outFilterMatchNmin 0
   }
   RuntimeAttr runtime_attr_default = object {
-    cpu: 1,
-    memory_gb: 1
+    cpu: 16,
+    memory_gb: 32
   }
+  Int cpu = select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
+  Int memory_gb = select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])
   runtime {
     cpu: select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
     memory: select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])+"GiB"
@@ -244,12 +253,14 @@ task featurecounts {
   command {
     set -euo pipefail
     mv "~{in_data}" ".data.json"
-    celescope rna featureCounts --outdir "04.featureCounts" --sample "~{sample_name}" --assay "rna" --input "~{in_bam}" --gtf_type "~{gtf_type}" --genomeDir "~{genome_dir}" --thread ~{runtime_attr_override.cpu}
+    celescope rna featureCounts --outdir "04.featureCounts" --sample "~{sample_name}" --assay "rna" --input "~{in_bam}" --gtf_type "~{gtf_type}" --genomeDir "~{genome_dir}" --thread "~{cpu}"
   }
   RuntimeAttr runtime_attr_default = object {
-    cpu: 1,
-    memory_gb: 1
+    cpu: 16,
+    memory_gb: 32
   }
+  Int cpu = select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
+  Int memory_gb = select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])
   runtime {
     cpu: select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
     memory: select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])+"GiB"
@@ -276,15 +287,17 @@ task count {
   command {
     set -euo pipefail
     mv "~{in_data}" ".data.json"
-    celescope rna count --outdir "05.count" --sample "~{sample_name}" --assay rna --bam "~{in_bam}" --genomeDir "~{genome_dir}" --thread "~{runtime_attr_override.cpu}"
+    celescope rna count --outdir "05.count" --sample "~{sample_name}" --assay rna --bam "~{in_bam}" --genomeDir "~{genome_dir}" --thread "~{cpu}"
     wc -l "05.count/~{sample_name}_matrix_10X/barcodes.tsv" | cut -f 1 -d ' ' > "cell_num.txt"
     wc -l "05.count/~{sample_name}_matrix_10X/genes.tsv" | cut -f 1 -d ' ' > "gene_num.txt"
     tar cf "~{sample_name}_matrix_10X.tar" --directory="05.count/~{sample_name}_matrix_10X" .
   }
   RuntimeAttr runtime_attr_default = object {
     cpu: 1,
-    memory_gb: 1
+    memory_gb: 8
   }
+  Int cpu = select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
+  Int memory_gb = if mem_on_bam > select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb]) then mem_on_bam else select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])
   runtime {
     cpu: select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
     memory: if mem_on_bam > select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb]) then mem_on_bam+"GiB" else select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])+"GiB"
@@ -306,6 +319,7 @@ task analysis {
     File in_matrix
     File in_data
     Int mem_on_mtx
+    String genome_dir
 
     RuntimeAttr runtime_attr_override
   }
@@ -314,12 +328,14 @@ task analysis {
     mkdir -p "05.count/~{sample_name}_matrix_10X"
     tar xf "~{in_matrix}" --directory="05.count/~{sample_name}_matrix_10X"
     mv "~{in_data}" ".data.json"
-    celescope rna analysis --outdir "06.analysis" --sample "~{sample_name}" --assay rna --matrix_file "05.count/~{sample_name}_matrix_10X" --thread "~{runtime_attr_override.cpu}"
+    celescope rna analysis --outdir "06.analysis" --sample "~{sample_name}" --assay rna --matrix_file "05.count/~{sample_name}_matrix_10X" --thread "~{cpu}" --genomeDir "~{genome_dir}"
   }
   RuntimeAttr runtime_attr_default = object {
-    cpu: 1,
-    memory_gb: 1
+    cpu: 4,
+    memory_gb: 8
   }
+  Int cpu = select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
+  Int memory_gb = if mem_on_mtx > select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb]) then mem_on_mtx else select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])
   runtime {
     cpu: select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
     memory: if mem_on_mtx > select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb]) then mem_on_mtx+"GiB" else select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])+"GiB"

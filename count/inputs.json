@@ -19,43 +19,43 @@
   "celescope_count.runtime_attr_sample": {
     "cpu": 1,
     "memory_gb": 1,
-    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:1.3.0",
+    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:temporary",
     "queue": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-RD"
   },
   "celescope_count.runtime_attr_featurecounts": {
-    "cpu": 16, 
-    "memory_gb": 32, 
-    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:1.3.0",
+    "cpu": 16,
+    "memory_gb": 32,
+    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:temporary",
     "queue": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-RD"
   },
   "celescope_count.runtime_attr_analysis": {
     "cpu": 4,
     "memory_gb": 8,
-    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:1.3.0",
+    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:temporary",
     "queue": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-RD"
   },
   "celescope_count.runtime_attr_cutadapt": {
     "cpu": 1,
     "memory_gb": 1,
-    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:1.3.0",
+    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:temporary",
     "queue": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-RD"
   },
   "celescope_count.runtime_attr_barcode": {
     "cpu": 1,
     "memory_gb": 1,
-    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:1.3.0",
+    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:temporary",
     "queue": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-RD"
   },
   "celescope_count.runtime_attr_count": {
     "cpu": 1,
     "memory_gb": 8,
-    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:1.3.0",
+    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:temporary",
     "queue": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-RD"
   },
   "celescope_count.runtime_attr_star": {
-    "cpu": 16, 
-    "memory_gb": 32, 
-    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:1.3.0",
+    "cpu": 16,
+    "memory_gb": 32,
+    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:temporary",
     "queue": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-RD"
   }
 }
