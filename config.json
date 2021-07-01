@@ -1,0 +1,46 @@
+{
+  "queue": {
+    "BI": {
+      "default": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-BI",
+      "priority": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/priority-BI"
+    },
+    "RD": {
+      "default": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-RD",
+      "priority": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/priority-RD"
+    },
+    "DE": {
+      "default": "arn:aws:batch:eu-central-1:161533937926:job-queue/default-DE",
+      "priority": "arn:aws:batch:eu-central-1:161533937926:job-queue/priority-DE"
+    }
+  },
+  "backend": {
+    "BI": "BI",
+    "RD": "RD",
+    "DE": "DE"
+  },
+  "docker": {
+    "BI": {
+      "miniconda3": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/miniconda3:4.9.2",
+      "singleronbio-celescope": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:temporary",
+      "singleronbio-cellranger": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-cellranger:4.0.0",
+      "singleronbio-rawdata": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-rawdata:0.1.2",
+      "singleronbio-scrnaanalysis": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-scrnaanalysis:0.0.1",
+      "singleronbio-scrnareport": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-scrnareport:0.0.1"
+    },
+    "RD": {
+      "miniconda3": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/miniconda3:4.9.2",
+      "singleronbio-celescope": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-celescope:temporary",
+      "singleronbio-cellranger": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-cellranger:4.0.0",
+      "singleronbio-rawdata": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-rawdata:0.1.2",
+      "singleronbio-scrnaanalysis": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-scrnaanalysis:0.0.1",
+      "singleronbio-scrnareport": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-scrnareport:0.0.1"
+    },
+   "DE": {
+      "miniconda3": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/miniconda3:4.9.2",
+      "singleronbio-celescope": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-celescope:temporary",
+      "singleronbio-cellranger": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-cellranger:4.0.0",
+      "singleronbio-rawdata": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-rawdata:0.1.2",
+      "singleronbio-scrnaanalysis": "161533937926.dkr.ecr.eu-central-1.amazonaws.com/singleronbio-scrnareport:0.0.1"
+    }
+  }
+}
