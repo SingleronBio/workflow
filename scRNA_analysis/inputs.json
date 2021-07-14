@@ -16,6 +16,10 @@
   "scRNA_analysis.ppinum": "9606",
   "scRNA_analysis.stringdb": "/usr/local/aws-cli/reference/genome/Homo_sapiens/ensembl_92/PPI/",
   "scRNA_analysis.keggpathway": "/usr/local/aws-cli/reference/genome/Homo_sapiens/ensembl_92/Kegg_pathway",
+  "scRNA_analysis.projectID":"P20111111",
+  "scRNA_analysis.language":"English",
+  "scRNA_analysis.company":"Tongyuan",
+  "scRNA_analysis.mtx_report":"s3://singleronbio-ami/sec/E2_report.html",
   "scRNA_analysis.runtime_attr_seurat": {
     "cpu": 1,
     "memory_gb": 8,
@@ -44,6 +48,12 @@
     "cpu": 1,
     "memory_gb": 10,
     "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-scrnaanalysis:0.0.1",
+    "queue": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-RD"
+  },
+  "scRNA_analysis.runtime_attr_report": {
+    "cpu": 1,
+    "memory_gb": 1,
+    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-scrnareport:0.0.1",
     "queue": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-RD"
   }
 } 
