@@ -10,7 +10,7 @@ struct RuntimeAttr {
 workflow scRNA_analysis {
   input {
     String sample_name
-    String  datatype
+    String datatype
     String species
     File exp_matrix
     File bam
@@ -26,12 +26,17 @@ workflow scRNA_analysis {
     String ppinum
     String Veloref1
     String Veloref2
+    String projectID
+    String language
+    String company
+    File mtx_report
 
     RuntimeAttr runtime_attr_seurat
     RuntimeAttr runtime_attr_generate_anno
     RuntimeAttr runtime_attr_monocle
     RuntimeAttr runtime_attr_velocity
     RuntimeAttr runtime_attr_enrichment
+    RuntimeAttr runtime_attr_report
 
   }
   call scrna_seurat {
@@ -88,7 +93,24 @@ workflow scRNA_analysis {
 
       runtime_attr_override = runtime_attr_enrichment
   }
+  call scrna_report {
+   input:
+     sample_name = sample_name,
+     company = company,
+     language = language,
+     species = species,
+     projectID = projectID,
+     seurat_result = scrna_seurat.resultFolder,
+     monocle_result = scrna_monocle.resultFolder,
+     velocity_result = scrna_velocity.resultFolder,
+     enrichment_result = scrna_enrichment.resultFolder,
+     report_temp = mtx_report,
+
+     runtime_attr_override = runtime_attr_report
+  }
   output {
+    File resultFolder1 = scrna_report.resultFolder1
+    File resultFolder2 = scrna_report.resultFolder2
   }
 }
 
@@ -291,7 +313,7 @@ task scrna_enrichment {
     tar -xzf  "~{targetFolder}/Differential_Gene.tar.gz"
     cp -r "Seurat/4.Differential_Gene"     "~{targetFolder}/Differential_Gene"
     cp -r "~{targetFolder}/Differential_Gene"     "~{targetFolder}/Differential_Gene.temp"
-    perl  /opt/scRNA_seq/Enrich_anno/enrich_preparation.pl\
+    perl  /opt/scRNA_seq/Enrich_anno/enrich_preparation.pl \
     -indir  "~{targetFolder}/Differential_Gene.temp" \
     -outdir   ~{targetFolder} \
     -geneinf   ~{geneinf} \
@@ -328,4 +350,96 @@ task scrna_enrichment {
     docker: select_first([runtime_attr_override.docker, runtime_attr_default.docker])
     queueArn: select_first([runtime_attr_override.queue, runtime_attr_default.queue])
   }
-} 
+}
+
+task scrna_report {
+  input {
+    String company
+    String species
+    String language
+    String sample_name
+    File seurat_result
+    File monocle_result
+    File velocity_result
+    File enrichment_result
+    File report_temp
+    String projectID
+    String targetFolder = "Report"
+    RuntimeAttr runtime_attr_override
+  }
+  command {
+    set -euo pipefail
+    mkdir -p "~{targetFolder}/~{sample_name}_RNA_result"
+    mkdir -p "~{targetFolder}/~{sample_name}_RNA_report"
+    cp ~{seurat_result}    "~{targetFolder}/~{sample_name}_RNA_result"
+    cp ~{monocle_result}  "~{targetFolder}/~{sample_name}_RNA_result"
+    cp ~{velocity_result}   "~{targetFolder}/~{sample_name}_RNA_result"
+    cp ~{enrichment_result}  "~{targetFolder}/~{sample_name}_RNA_result"
+    cd  "~{targetFolder}/~{sample_name}_RNA_result"
+    tar -xzf  Seurat.tar.gz
+    tar -xzf  monocle.tar.gz  
+    tar -xzf  RNAvelocity.tar.gz
+    tar -xzf  enrichment.tar.gz
+    rm -rf Seurat.tar.gz monocle.tar.gz RNAvelocity.tar.gz enrichment.tar.gz
+    cd  ../..
+    mkdir -p "~{targetFolder}/~{sample_name}_RNA_report/src"
+    if [ "~{language}" = "Chinese" ]; then
+       if [ "~{company}" = "Singleron" ]; then   
+           cp ~{report_temp}  "~{targetFolder}/~{sample_name}_RNA_report/src/web_summary.html"
+           perl /opt/scRNA_Report/Report/Singleron/report.V2.0.1.pl \
+            -indir  ~{targetFolder} \
+            -projectID ~{projectID} \
+            -type SCOPEv1 \
+            -prefix "~{sample_name}_RNA" \
+            -sample ~{sample_name} \
+            -rmd  /opt/scRNA_Report/Report/Singleron/report_summary.rmd \
+            -pdf /opt/conda/bin/wkhtmltopdf \
+            -species ~{species} \
+            -rmarkdown  /opt/scRNA_Report/Report/rmarkdown
+       elif [ "~{company}" = "Tongyuan" ]; then
+           python /opt/scRNA_Report/Report/Tongyuan/logo.py \
+            -r ~{report_temp} \
+            -n "~{targetFolder}/~{sample_name}_RNA_report/src/web_summary.html"
+           perl /opt/scRNA_Report/Report/Tongyuan/tongyuan.report.V2.0.1.pl \
+            -indir  ~{targetFolder} \
+            -projectID ~{projectID} \
+            -type SCOPEv1 \
+            -prefix "~{sample_name}_RNA" \
+            -sample ~{sample_name} \
+            -rmd  /opt/scRNA_Report/Report/Tongyuan/report_summary.rmd \
+            -pdf /opt/conda/bin/wkhtmltopdf \
+            -species ~{species} \
+            -rmarkdown  /opt/scRNA_Report/Report/rmarkdown
+       fi
+    elif [ "~{language}" = "English" ]; then
+       cp ~{report_temp}  "~{targetFolder}/~{sample_name}_RNA_report/src/web_summary.html"
+       perl /opt/scRNA_Report/Report/Eng.Singleron/report.V2.0.1.pl \
+            -indir  ~{targetFolder} \
+            -projectID ~{projectID} \
+            -type SCOPEv1 \
+            -prefix "~{sample_name}_RNA" \
+            -sample ~{sample_name} \
+            -rmd  /opt/scRNA_Report/Report/Eng.Singleron/report_summary.rmd \
+            -pdf /opt/conda/bin/wkhtmltopdf \
+            -species ~{species} \
+            -rmarkdown  /opt/scRNA_Report/Report/rmarkdown
+    fi
+    cd  ~{targetFolder}
+    tar -zcf "~{sample_name}_RNA_report.tar.gz" "~{sample_name}_RNA_report"
+    tar -zcf "~{sample_name}_RNA_result.tar.gz" "~{sample_name}_RNA_result"
+    }
+  RuntimeAttr runtime_attr_default = object {
+    cpu: 1,
+    memory_gb: 1
+  }
+  runtime {
+    cpu: select_first([runtime_attr_override.cpu, runtime_attr_default.cpu])
+    memory: select_first([runtime_attr_override.memory_gb, runtime_attr_default.memory_gb])+"GiB"
+    docker: select_first([runtime_attr_override.docker, runtime_attr_default.docker])
+    queueArn: select_first([runtime_attr_override.queue, runtime_attr_default.queue])
+  }
+  output{
+    File resultFolder1 = "~{targetFolder}/~{sample_name}_RNA_report.tar.gz"
+    File resultFolder2 = "~{targetFolder}/~{sample_name}_RNA_result.tar.gz"
+  }
+}
