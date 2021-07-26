@@ -82,7 +82,7 @@ task obs {
   command {
     set -euo pipefail
     obsutil cp -p 100 -e "~{endpoint}" -i "~{aki}" -k "~{aks}" "~{type}://~{bucket}/~{file.path}" . >/dev/null 2>&1
-    echo "~{file.md5}" "$(basename "~{file.path}")" | md5sum --check --status
+    echo "~{file.md5}" "$(basename "~{file.path}")" | md5sum --check
   }
   RuntimeAttr runtime_attr_default = object {
     cpu: 1,
@@ -115,7 +115,7 @@ task oss {
   command {
     set -euo pipefail
     ossutil64 cp -e "~{endpoint}" -i "~{aki}" -k "~{aks}" "~{type}://~{bucket}/~{file.path}" . >/dev/null 2>&1
-    echo "~{file.md5}" "$(basename "~{file.path}")" | md5sum --check --status
+    echo "~{file.md5}" "$(basename "~{file.path}")" | md5sum --check
   }
   RuntimeAttr runtime_attr_default = object {
     cpu: 1,
@@ -150,8 +150,8 @@ task s3 {
     export AWS_ACCESS_KEY_ID="~{aki}"
     export AWS_SECRET_ACCESS_KEY="~{aks}"
     export AWS_DEFAULT_REGION="~{endpoint}"
-    aws s3 cp "~{type}://~{bucket}/~{file.path}" . >/dev/null 2>&1
-    echo "~{file.md5}" "$(basename "~{file.path}")" | md5sum --check --status
+    /usr/local/aws-cli/v2/current/bin/aws s3 cp --region "~{endpoint}" "~{type}://~{bucket}/~{file.path}" . >/dev/null 2>&1
+    echo "~{file.md5}" "$(basename "~{file.path}")" | md5sum --check
   }
   RuntimeAttr runtime_attr_default = object {
     cpu: 1,

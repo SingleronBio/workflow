@@ -6,22 +6,22 @@
   "rawdata.type": "s3",
   "rawdata.endpoint": "cn-northwest-1",
   "rawdata.bucket": "singleronbio-sequence-provider",
-  "rawdata.aki": "AKIA6EWQGDHCYT5NUJ4U",
-  "rawdata.aks": "D3uh6VfXz5N+MzBEmuEk+anx2GcqjNvAobcyl4MC",
+  "rawdata.aki": "Access Key ID",
+  "rawdata.aks": "Access Key Secret",
   "rawdata.files": [
     {
-      "path": "ketouyun/PT47X/L210514025X1/L210514025X1_R1.fastq.gz",
-      "md5": "4794dc0cd7a6340e555ce5a75e2ecc88"
+      "path": "20210506/LTC210419008X1TCR/LTC210419008X1TCR_R1.fastq.gz",
+      "md5": "a0af6c3f2e50b967f596c620a5d74bff"
     },
     {
-      "path": "ketouyun/PT47X/L210514025X1/L210514025X1_R2.fastq.gz",
-      "md5": "e7866112392a89f9029beb6b38b707ee"
+      "path": "20210506/LTC210419008X1TCR/LTC210419008X1TCR_R2.fastq.gz",
+      "md5": "acfa1bcb088305b5a99ae4ecc9e34119"
     }
   ],
   "rawdata.runtime_attr_download": {
     "cpu": 1,
     "memory_gb": 1,
-    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-rawdata:0.1.2",
+    "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-rawdata:0.1.3",
     "queue": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-RD"
   }
 }
