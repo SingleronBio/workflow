@@ -1,19 +1,19 @@
 {
-  "cellranger_count_GEX.fq2s": [
-    "s3://singleronbio-ami/rawdata/10x/pbmc_1k_v3_S1_L001_R2_001.fastq.gz",
-    "s3://singleronbio-ami/rawdata/10x/pbmc_1k_v3_S1_L002_R2_001.fastq.gz"
-  ],
-  "cellranger_count_GEX.sample_name": "String",
+  "cellranger_count_GEX.sample_name": "pbmc_1k_v3",
   "cellranger_count_GEX.fq1s": [
     "s3://singleronbio-ami/rawdata/10x/pbmc_1k_v3_S1_L001_R1_001.fastq.gz",
     "s3://singleronbio-ami/rawdata/10x/pbmc_1k_v3_S1_L002_R1_001.fastq.gz"
   ],
+  "cellranger_count_GEX.fq2s": [
+    "s3://singleronbio-ami/rawdata/10x/pbmc_1k_v3_S1_L001_R2_001.fastq.gz",
+    "s3://singleronbio-ami/rawdata/10x/pbmc_1k_v3_S1_L002_R2_001.fastq.gz"
+  ],
+  "cellranger_count_GEX.expect_cells": "3000",
   "cellranger_count_GEX.transcriptome": "/usr/local/aws-cli/reference/10xgenomics/refdata-gex-GRCh38-2020-A",
   "cellranger_count_GEX.runtime_attr_count": {
     "cpu": 2,
     "memory_gb": 32,
     "docker": "972172958149.dkr.ecr.cn-northwest-1.amazonaws.com.cn/singleronbio-cellranger:4.0.0",
     "queue": "arn:aws-cn:batch:cn-northwest-1:972172958149:job-queue/default-RD"
-  },
-  "cellranger_count_GEX.expect_cells": "3000"
+  }
 }
