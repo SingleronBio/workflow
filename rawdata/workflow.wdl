@@ -81,7 +81,7 @@ task obs {
   }
   command {
     set -euo pipefail
-    obsutil cp -p 100 -e "~{endpoint}" -i "~{aki}" -k "~{aks}" "~{type}://~{bucket}/~{file.path}" . >/dev/null 2>&1
+    obsutil cp -p 100 -e "~{endpoint}" -i "~{aki}" -k "~{aks}" "~{type}://~{bucket}/~{file.path}" . 1>/dev/null
     echo "~{file.md5}" "$(basename "~{file.path}")" | md5sum --check
   }
   RuntimeAttr runtime_attr_default = object {
@@ -114,7 +114,7 @@ task oss {
   }
   command {
     set -euo pipefail
-    ossutil64 cp -e "~{endpoint}" -i "~{aki}" -k "~{aks}" "~{type}://~{bucket}/~{file.path}" . >/dev/null 2>&1
+    ossutil64 cp -e "~{endpoint}" -i "~{aki}" -k "~{aks}" "~{type}://~{bucket}/~{file.path}" . 1>/dev/null
     echo "~{file.md5}" "$(basename "~{file.path}")" | md5sum --check
   }
   RuntimeAttr runtime_attr_default = object {
@@ -150,7 +150,7 @@ task s3 {
     export AWS_ACCESS_KEY_ID="~{aki}"
     export AWS_SECRET_ACCESS_KEY="~{aks}"
     export AWS_DEFAULT_REGION="~{endpoint}"
-    /usr/local/aws-cli/v2/current/bin/aws s3 cp --region "~{endpoint}" "~{type}://~{bucket}/~{file.path}" . >/dev/null 2>&1
+    /usr/local/aws-cli/v2/current/bin/aws s3 cp --region "~{endpoint}" "~{type}://~{bucket}/~{file.path}" . 1>/dev/null
     echo "~{file.md5}" "$(basename "~{file.path}")" | md5sum --check
   }
   RuntimeAttr runtime_attr_default = object {
